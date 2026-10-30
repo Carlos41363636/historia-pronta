@@ -9,10 +9,24 @@
 <meta property="og:description" content="Do 6º ao 9º ano: atividades alinhadas à BNCC, 10 questões cada e gabarito comentado. R$ 29,90 por série.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;1,400&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-<!-- ===================== PIXEL DO META =====================
-     Cole aqui o código base do seu Pixel (Gerenciador de Eventos > Pixel > Instalar manualmente).
-     Os botões de compra já disparam o evento InitiateCheckout automaticamente (ver script no fim).
-     ========================================================= -->
+<!-- Meta Pixel Code -->
+<script>
+!function(f,b,e,v,n,t,s)
+{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];
+s.parentNode.insertBefore(t,s)}(window, document,'script',
+'https://connect.facebook.net/en_US/fbevents.js');
+fbq('init', '1107907798824776');
+fbq('track', 'PageView');
+fbq('track', 'ViewContent', {content_name: 'História Pronta', currency: 'BRL', value: 29.90});
+</script>
+<noscript><img height="1" width="1" style="display:none"
+src="https://www.facebook.com/tr?id=1107907798824776&ev=PageView&noscript=1"
+/></noscript>
+<!-- End Meta Pixel Code -->
 <style>
 :root{--navy:#23305E;--red:#E05A47;--blue:#4E9BD1;--yellow:#F4B740;--cream:#FFF6E6;--muted:#5E5D6E;--line:#E7E1D4;--green:#3BA776}
 *{box-sizing:border-box}
@@ -363,13 +377,15 @@ var CHECKOUT = {
   combo: "https://pay.kiwify.com.br/l4LKDi3"
 };
 /* ====================================== */
-function trk(ev){ try{ if(window.fbq) fbq('track', ev); }catch(e){} }
+var VALOR = {s6: 29.90, s7: 29.90, s8: 29.90, s9: 29.90, combo: 67};
+function trk(ev, d){ try{ if(window.fbq) fbq('track', ev, d || {}); }catch(e){} }
 (function(){
   var qs = location.search;  // repassa UTMs do anúncio para o checkout
   document.querySelectorAll('a[data-ck]').forEach(function(a){
     var u = CHECKOUT[a.getAttribute('data-ck')];
     a.href = u + (qs ? '?' + qs.slice(1) : '');
-    a.addEventListener('click', function(){ trk('InitiateCheckout'); });
+    var k = a.getAttribute('data-ck');
+    a.addEventListener('click', function(){ trk('InitiateCheckout', {content_name: k, currency: 'BRL', value: VALOR[k]}); });
   });
   var st = document.querySelector('.sticky'), hero = document.querySelector('.hero'), of = document.getElementById('oferta');
   function upd(){ var y = window.scrollY, past = y > hero.offsetHeight - 80;
